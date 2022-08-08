@@ -29,4 +29,10 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+//adding custom method
+userSchema.methods.comparePassword = async function (password) {
+    const res = await bcrypt.compareSync(password, this.password)
+    return res
+}
+
 module.exports = mongoose.model('User', userSchema);
