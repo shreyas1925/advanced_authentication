@@ -1,6 +1,9 @@
 const User = require('../model/userSchema');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { generateOTP } = require('../utils/mail');
+const VerificationToken = require('../model/verificationToken')
 require('dotenv').config();
+
 exports.createUser = async (req, res) => {
     const { name, email, password } = req.body
 
@@ -16,6 +19,16 @@ exports.createUser = async (req, res) => {
         password,
     })
 
+    // generate an otp
+
+    const OTP = generateOTP()
+
+    const verificationToken = new VerificationToken({
+        owner: newUser._id,
+        token: OTP
+    })
+
+    await verificationToken.save()
     await newUser.save()
     res.send(newUser)
 }
