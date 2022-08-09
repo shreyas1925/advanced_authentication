@@ -9,5 +9,4 @@ router.post('/create', validateUser, validate, createUser);
 router.post('/signin', signin)
 
 router.post('/verify-email', verifyEmail)
-
-module.exports = router;
+module.exports = router
