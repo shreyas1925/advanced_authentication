@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const verificationTokenSchema = new mongoose.Schema({
+const resetTokenSchema = new mongoose.Schema({
     owner:
     {
         type: mongoose.Schema.Types.ObjectId,
@@ -13,13 +13,13 @@ const verificationTokenSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        expires: '360000',
+        expires: '36000s',
         default: Date.now()
     }
 
 })
 
-verificationTokenSchema.pre('save', async function (next) {
+resetTokenSchema.pre('save', async function (next) {
     if (this.isModified('token')) {
         const hash = await bcrypt.hash(this.token, 10)
         this.token = hash
@@ -28,9 +28,10 @@ verificationTokenSchema.pre('save', async function (next) {
 })
 
 //adding custom method
-verificationTokenSchema.methods.compareToken = async function (token) {
+resetTokenSchema.methods.compareToken = async function (token) {
     const res = await bcrypt.compareSync(token, this.token)
     return res
 }
 
-module.exports = mongoose.model('VerificationToken', verificationTokenSchema);
+module.exports = mongoose.model('resetToken', resetTokenSchema);
+
