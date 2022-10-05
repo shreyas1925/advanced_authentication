@@ -1,31 +1,22 @@
-import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import { KeyboardAvoidingView, Image, StyleSheet, Text, View, TextInput, Dimensions, Pressable, ScrollView } from 'react-native';
 
 export default function Login() {
-    const navigation = useNavigation();
-    const navigateToSignup = () => {
-        navigation.navigate("Signup");
-    }
-
-    const navigateToForget = () => {
-        navigation.navigate("ForgetPassword");
-    }
     return (
         <KeyboardAvoidingView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Image style={styles.logo} source={require("../assets/logo.jpg")} />
                 <TextInput style={styles.input} placeholder="shreyasshettigar@gmail.com" />
-                <TextInput style={styles.input} placeholder="********" />
 
                 <Pressable style={styles.btnContainer}>
-                    <Text style={styles.text}>Login</Text>
+                    <Text style={styles.text}>Reset Link</Text>
                 </Pressable>
                 <View style={styles.linkcontainer}>
                     <Pressable>
-                        <Text style={styles.linkText} onPress={navigateToSignup}>Sign up</Text>
+                        <Text style={styles.linkText}>Login</Text>
                     </Pressable>
                     <Pressable>
-                        <Text style={styles.linkText} onPress={navigateToForget}>Forgot password ?</Text>
+                        <Text style={styles.linkText}>Forgot password ?</Text>
                     </Pressable>
                 </View>
             </ScrollView >
